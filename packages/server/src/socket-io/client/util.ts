@@ -11,7 +11,7 @@ export const sendErrors = (notification: Notification) => (target: SocketControl
     try {
       await method.bind(this)(...args)
     } catch (message) {
-      console.error(`Error handling '${propertyKey}':`, message);
+      console.error(`Error handling '${propertyKey}':`, message)
       this.notify({
         level: 'warning',
         autoDismiss: 20,
@@ -34,7 +34,8 @@ export function Expect(value: any, expected: Expected | Expected[], name?: strin
   let message: string
 
   const valid = expected.find(expect => {
-    const thisValid: boolean = (is.string(expect) ? is[expect] : expect)(value)
+    const validateFn = (is.string(expect) ? (is as any)[expect] : expect) as Validate
+    const thisValid: boolean = validateFn(value)
     if (thisValid) return true
 
     const expectedType = is.string(expect) ? expect : 'special'

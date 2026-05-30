@@ -7,7 +7,7 @@ import Server from 'database/models/Server'
  * @param id The server id to fetch
  */
 export async function Fetch(id: string): Promise<Server> {
-  const server = await store.servers.findOne<Server>({ id })
+  const server = await store.servers.findOneAsync<Server>({ id })
 
   return {
     id,
@@ -23,10 +23,10 @@ export async function Fetch(id: string): Promise<Server> {
  * @param id The server id to fetch
  */
 export async function Update(id: string, storage: Server) {
-  const server = await store.servers.findOne<Server>({ id })
+  const server = await store.servers.findOneAsync<Server>({ id })
 
   if (server) {
-    store.servers.update(
+    await store.servers.updateAsync(
       { id },
       {
         id,
@@ -35,7 +35,7 @@ export async function Update(id: string, storage: Server) {
       }
     )
   } else {
-    store.servers.insert({
+    await store.servers.insertAsync({
       id,
       ...storage
     })

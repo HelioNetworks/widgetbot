@@ -24,21 +24,28 @@ export const Root = styled.div`
     top: 50%;
     right: 100%;
     bottom: 1px;
-    left: calc(-1 * (0.5 * 40px + 16px));
+    left: -36px;
     margin: calc(-0.5 * 2px) 4px calc(-4px + 0.125rem) calc(-0.5 * 2px);
     border-color: hsl(228 calc(1 * 6%) 32.5% / 1);
     border-width: 2px 0 0 2px;
     border-style: solid;
     border-top-left-radius: 6px;
-    z-index: 9999;
-    //position: absolute;
-    //width: 33px;
-    //height: 12px;
-    //top: 9px;
-    //left: 34px;
-    //border-left: 2px solid rgb(79, 84, 92);
-    //border-top: 2px solid rgb(79, 84, 92);
-    //border-top-left-radius: 6px;
+  }
+
+  @media (max-width: 500px), (max-height: 370px) {
+    margin-bottom: -8px;
+    left: 70px;
+  }
+
+  @media (max-width: 400px), (max-height: 370px) {
+    left: 60px;
+    &:before {
+      left: -28.5px;
+    }
+  }
+
+  @media (max-width: 260px) {
+    left: 55px;
   }
 `
 

@@ -1,20 +1,18 @@
 import config from 'config'
 import fs from 'fs'
-import graphqlHTTP from 'express-graphql'
+import { graphqlHTTP } from 'express-graphql'
 import path from 'path'
 import { buildSchema } from 'graphql'
 
 import root from '../graphql/root'
 
-const schema = buildSchema(
-  fs.readFileSync(path.join(__dirname, '../graphql/schema.gql'), 'utf8')
-)
+const schema = buildSchema(fs.readFileSync(path.join(__dirname, '../graphql/schema.gql'), 'utf8'))
 
 const controller = graphqlHTTP((req, res, params) => ({
   schema: schema,
   rootValue: root,
   graphiql: !!config.express.graphiql,
-  formatError(error) {
+  customFormatErrorFn(error) {
     if (error.path || error.name !== 'GraphQLError') {
       if (config.development) {
         console.error(error.message)

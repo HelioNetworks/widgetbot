@@ -12,12 +12,12 @@ const Stats = {
     return total
   },
   async totalGuests() {
-    const guests = await store.guests.find({})
+    const guests = await store.guests.findAsync({})
     return guests.length
   },
   async totalMessages() {
     let total = 0
-    const guests = await store.guests.find<Guest>({})
+    const guests = await store.guests.findAsync<Guest>({})
 
     guests.forEach(guest => (total += guest.log.messages.length))
     return total

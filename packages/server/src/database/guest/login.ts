@@ -18,7 +18,7 @@ async function Login(data: ILogin) {
   const query = { _id: id }
 
   // Fetch the guest from the database
-  let doc = await store.guests.findOne<Guest>(query)
+  let doc = await store.guests.findOneAsync<Guest>(query)
   if (!doc) throw 'User not in database'
 
   // Update the document
@@ -28,9 +28,10 @@ async function Login(data: ILogin) {
   if (!doc.log.ips.includes(data.ip)) transaction.$push = { 'log.ips': data.ip }
 
   // Update document
-  doc = await store.guests.update<Guest>(query, transaction, {
+  const { affectedDocuments } = await store.guests.updateAsync(query, transaction, {
     returnUpdatedDocs: true
   })
+  doc = affectedDocuments as any
 
   return doc
 }

@@ -22,7 +22,7 @@ const startMetrics = () => {
     name: 'Total messages',
     async value() {
       let total = 0
-      const guests = await store.guests.find<Guest>({})
+      const guests = await store.guests.findAsync<Guest>({})
 
       guests.forEach(guest => (total += guest.log.messages.length))
       return total

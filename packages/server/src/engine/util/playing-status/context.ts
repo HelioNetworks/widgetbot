@@ -8,7 +8,7 @@ const Context = {
   shard: 'widgetbot.io',
 
   async accountCount() {
-    return (await store.guests.find({})).length
+    return (await store.guests.findAsync({})).length
   },
 
   visitorCount() {
@@ -16,7 +16,7 @@ const Context = {
   },
 
   async messageCount() {
-    const guests = await store.guests.find<Guest>({})
+    const guests = await store.guests.findAsync<Guest>({})
 
     let count = 0
     guests.forEach(guest => (count += guest.log.messages.length))

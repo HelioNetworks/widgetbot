@@ -52,7 +52,7 @@ class Message extends React.PureComponent<Props, any> {
 
             {messages.map((message, i) => (
               <ThemeProvider key={message.id} theme={this.theme(message)}>
-                <Root className="message">
+                <Root className="message" id={`message-${message.id}`}>
                   <Content className="content">{parseText(message)}</Content>
 
                   {message.reactions && (

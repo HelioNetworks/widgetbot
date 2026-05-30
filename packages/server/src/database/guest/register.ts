@@ -30,7 +30,7 @@ async function Register(data: IRegister) {
     discord: !!data.discord_id
   }
 
-  const doc = await store.guests.insert(guest)
+  const doc = await store.guests.insertAsync(guest)
   const token = jwt.sign({ id: doc._id }, config.database.jwt_secret)
 
   return { doc, token }

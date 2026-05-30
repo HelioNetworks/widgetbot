@@ -1,27 +1,3 @@
-import util from 'util';
-const patches: Record<string, Function> = {
-  isArray: Array.isArray,
-  isBoolean: (arg: any) => typeof arg === 'boolean',
-  isNull: (arg: any) => arg === null,
-  isNullOrUndefined: (arg: any) => arg === null || arg === undefined,
-  isNumber: (arg: any) => typeof arg === 'number',
-  isString: (arg: any) => typeof arg === 'string',
-  isSymbol: (arg: any) => typeof arg === 'symbol',
-  isUndefined: (arg: any) => arg === undefined,
-  isRegExp: (arg: any) => arg instanceof RegExp,
-  isObject: (arg: any) => arg !== null && typeof arg === 'object',
-  isDate: (arg: any) => arg instanceof Date,
-  isError: (arg: any) => arg instanceof Error,
-  isFunction: (arg: any) => typeof arg === 'function',
-  isPrimitive: (arg: any) => arg === null || (typeof arg !== 'object' && typeof arg !== 'function'),
-  isBuffer: Buffer.isBuffer
-};
-Object.keys(patches).forEach(key => {
-  if (typeof (util as any)[key] !== 'function') {
-    (util as any)[key] = patches[key];
-  }
-});
-
 import { app, server } from 'app'
 import config from 'config'
 import { connect } from 'database'

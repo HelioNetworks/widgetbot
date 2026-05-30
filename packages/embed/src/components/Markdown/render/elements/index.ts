@@ -17,6 +17,7 @@ export { Twemoji, Emoji } from './emoji'
 export { Code } from './code'
 export { Channel, Mention, Role } from './mentions'
 export { Image } from './media'
+export { Spoiler } from './spoiler'
 
 export const Timestamp = styled.span`
   background: rgba(255, 255, 255, 0.08);

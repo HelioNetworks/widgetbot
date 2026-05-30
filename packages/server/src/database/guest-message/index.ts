@@ -6,15 +6,9 @@ import { client } from 'engine'
 
 import Message from '../../types/message'
 
-export const enhanceMessage = (
-  message: Message,
-  enhancer: GuestMessage
-): Message => ({
+export const enhanceMessage = (message: Message, enhancer: GuestMessage): Message => ({
   ...message,
-  content:
-    message.author.id === client.user.id
-      ? message.content.replace(/[^`]*`[^`]*` /, '')
-      : message.content,
+  content: message.author.id === client.user.id ? message.content.replace(/[^`]*`[^`]*` /, '') : message.content,
   author: {
     ...message.author,
     type: 'guest',
@@ -41,7 +35,7 @@ export async function Enhance(message: Message) {
       return enhanced
     }
 
-    const doc = await store.guests.findOne<Guest>({
+    const doc = await store.guests.findOneAsync<Guest>({
       'log.messages': message.id
     })
 
@@ -63,7 +57,7 @@ export async function Enhance(message: Message) {
 export async function SetEnhancer(enhancer: GuestMessage, content: string) {
   Pending.resolve(content, enhancer)
 
-  await store.guests.update(
+  await store.guests.updateAsync(
     { 'user.id': enhancer.user.id },
     {
       $push: {

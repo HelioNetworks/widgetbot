@@ -1,6 +1,5 @@
 import config from 'config'
 import { Client } from 'discord.js'
-import async from 'doasync'
 import * as Discord from 'discord.js'
 import Commands from 'engine/commands'
 import inCache from 'engine/inCache'
@@ -23,7 +22,7 @@ export async function Login(token: string) {
 
   await client.login(token)
   await new Promise<void>(resolve => {
-    client.on('ready', () => resolve())
+    client.on('clientReady', () => resolve())
   })
   // await async(client).on('ready')
 
@@ -165,8 +164,7 @@ export async function Login(token: string) {
     const oldColor = oldMember.displayHexColor
     const newColor = newMember.displayHexColor
 
-    const rolesChanged = oldMember.roles.cache.size !== newMember.roles.cache.size ||
-      !oldMember.roles.cache.every(role => newMember.roles.cache.has(role.id))
+    const rolesChanged = oldMember.roles.cache.size !== newMember.roles.cache.size || !oldMember.roles.cache.every(role => newMember.roles.cache.has(role.id))
 
     if (oldName !== newName || oldColor !== newColor || rolesChanged) {
       const server = newMember.guild.id

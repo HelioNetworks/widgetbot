@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Message from '../../../../types/message'
+import scrollIntoView from 'scroll-into-view-if-needed'
 import { RepliedTextContent, ReplyText, ReplyTextPreview, Root } from './elements'
 
 const Reply = ({ id, messages }) => {
@@ -13,8 +14,22 @@ const Reply = ({ id, messages }) => {
       </Root>
     )
   }
+
+  const handleClick = () => {
+    const el = document.getElementById(`message-${id}`)
+    if (el) {
+      scrollIntoView(el, {
+        scrollMode: 'always',
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+        skipOverflowHiddenElements: true
+      })
+    }
+  }
+
   return (
-    <Root className="message-reply-context">
+    <Root className="message-reply-context" onClick={handleClick}>
       <img src={message.author.avatar} alt={''} style={{ borderRadius: '50%', width: '16px', height: '16px', userSelect: 'none', marginRight: '0.25rem' }} />
       <span
         style={{
